@@ -38,7 +38,6 @@ public class OrderService {
     private void validateOrder(Map<Menu, Integer> orderItems) {
         validateMinimumOrderAmount(orderItems);
         validateNotOnlyDrinks(orderItems);
-        validateQuantities(orderItems);
     }
 
     private void validateMinimumOrderAmount(Map<Menu, Integer> orderItems) {
@@ -55,14 +54,6 @@ public class OrderService {
         if (hasDrinks) {
             throw OrderException.from(ErrorMessage.ONLY_DRINKS);
         }
-    }
-
-    private void validateQuantities(Map<Menu, Integer> orderItems) {
-        orderItems.values().forEach(quantity -> {
-            if (quantity <= 0 || quantity > 10) {
-                throw OrderException.from(ErrorMessage.INVALID_ORDER_FORMAT);
-            }
-        });
     }
 
     private int calculateTotalAmount(Map<Menu, Integer> orderItems) {
